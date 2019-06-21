@@ -1,0 +1,111 @@
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+import styledMap from "styled-map";
+
+import TotalPrice from "../../Helpers/TotalPrice";
+import GoldStatus from "../../Helpers/GoldStatus";
+
+const BSContainer = styled.div`
+  margin-top: 60px;
+  padding: 30px;
+  border: 1px solid #eceff4;
+  border-bottom: transparent;
+`;
+
+const SendTitle = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 30px;
+  margin-bottom: 30px;
+  border-bottom: 1px solid #eceff4;
+`;
+
+const SendDesc = styled.span`
+  font-size: 17px;
+  color: #8a93a3;
+`;
+
+const SendStatus = styled.span`
+  font-size: 20px;
+  color: #4ad9bd;
+`;
+
+const TotalSend = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 22px;
+`;
+
+const Desc = styled.span`
+  font-size: 17px;
+
+  color: ${styledMap`
+    default: #1e1e3c;
+    isGold: #ffa000;
+    isDisc: #4ad9bd;
+  `};
+
+  margin-right: ${styledMap`
+    default: 0;
+    isGold: 4px;
+  `};
+`;
+
+const Container = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+`;
+
+const BasketSend = ({ totalPrice }) => {
+  const [isLowCost, getStateCost] = useState(false);
+  const [finalCost, getFinalCost] = useState(null);
+
+  useEffect(() => {
+    getFinalCost(totalPrice);
+  }, []);
+
+  useEffect(() => {
+    if (!isLowCost && totalPrice < 1000) {
+      getFinalCost(totalPrice + 299);
+      getStateCost(true);
+    } else if (isLowCost && totalPrice >= 1000) {
+      getFinalCost(totalPrice - 299);
+      getStateCost(false);
+    } else {
+      getFinalCost(totalPrice);
+    }
+  }, [totalPrice]);
+
+  return (
+    <BSContainer>
+      <SendTitle>
+        <SendDesc> Доставка </SendDesc>
+        <SendStatus>
+          {" "}
+          {totalPrice > 1000 ? "Бесплатно" : "Стоимость доставки 299 ₽"}{" "}
+        </SendStatus>
+      </SendTitle>
+      <TotalSend>
+        <Desc>Итоговая стоимость</Desc>
+        <TotalPrice isFull price={finalCost} />
+      </TotalSend>
+      <TotalSend>
+        <Container>
+          <Desc isGold>+ 20% на личный счет от</Desc>
+          <GoldStatus isBasket noMargin title="GOLD статуса" />
+        </Container>
+        <TotalPrice isGold price={(totalPrice * 20) / 100} />
+      </TotalSend>
+      <TotalSend>
+        <Desc isDisc>На личный счет вернется</Desc>
+        <TotalPrice price="9696" />
+      </TotalSend>
+    </BSContainer>
+  );
+};
+
+export default BasketSend;
