@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 import { getPublicUrl } from "../utils";
+import { colors } from "../styles";
 
 const BasketContainer = styled.div`
   display: flex;
@@ -25,7 +26,7 @@ const IconWrapper = styled.div`
 
 const Count = styled.span`
   position: absolute;
-  background-color: #ff8282;
+  background-color: ${colors.peachyPink};
   font-size: 12px;
   color: white;
   padding: 2px 6px;
@@ -37,7 +38,7 @@ const Count = styled.span`
 
 const Desc = styled(Link)`
   font-size: 14px;
-  color: #8a93a3;
+  color: ${colors.blueGray};
   text-decoration: none;
 
   &:hover {

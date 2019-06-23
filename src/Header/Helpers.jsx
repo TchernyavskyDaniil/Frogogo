@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
+import { colors } from "../styles";
+
 const HelpersContainer = styled.ul`
   display: flex;
   flex-direction: row;
@@ -16,11 +18,11 @@ const Helper = styled.li`
 
 const HelperLink = styled(Link)`
   text-decoration: none;
-  color: #8a93a3;
+  color: ${colors.blueGray};
   font-size: 15px;
 
   &:hover {
-    border-bottom: 1px solid #8a93a3;
+    border-bottom: 1px solid ${colors.blueGray};
   }
 `;
 

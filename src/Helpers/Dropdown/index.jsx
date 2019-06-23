@@ -3,7 +3,10 @@ import styled from "styled-components";
 import styledMap from "styled-map";
 
 import DropItem from "./DropItem";
+
 import { getPublicUrl } from "../../utils";
+import { colors } from "../../styles";
+import DefaultBtn from "../DefaultButton";
 
 const DropdownContainer = styled.div`
   display: flex;
@@ -13,7 +16,7 @@ const DropdownContainer = styled.div`
 
 const Title = styled.span`
   font-size: 14px;
-  color: #8a93a3;
+  color: ${colors.blueGray};
   font-weight: 300;
 `;
 
@@ -23,8 +26,9 @@ const DropList = styled.ul`
   margin: 0;
   padding: 0;
   position: absolute;
-  background-color: #f2f2f2;
-  width: max-content;
+  background-color: ${colors.baseGray};
+  width: auto;
+  z-index: 1000;
 `;
 
 const IconArr = styled.img`
@@ -39,21 +43,13 @@ const IconArr = styled.img`
   `};
 `;
 
-const Current = styled.button`
+const Current = styled(DefaultBtn)`
   font-size: 14px;
   color: #4ad9bd;
-  border: transparent;
-  background-color: transparent;
   padding: 0 4px;
   cursor: pointer;
-  max-width: 85px;
   text-overflow: ellipsis;
   overflow: hidden;
-  transition: 0.4s ease opacity;
-
-  &:hover {
-    opacity: 0.8;
-  }
 `;
 
 const ListContainer = styled.div`

@@ -1,17 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 import styledMap from "styled-map";
+import DefaultBtn from "../DefaultButton";
 
 const Drop = styled.li``;
 
-const Desc = styled.button`
+const Desc = styled(DefaultBtn)`
   font-size: 14px;
   color: #4ad9bd;
-  border: transparent;
-  background-color: transparent;
   padding: 0 4px;
-  cursor: pointer;
-  transition: 0.4s ease opacity;
   opacity: ${styledMap`
     active: 1;
     default: 0.8;

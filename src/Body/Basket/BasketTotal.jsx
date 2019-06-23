@@ -1,12 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import styledMap from "styled-map";
 
 import TotalPrice from "../../Helpers/TotalPrice";
+
 import { getDeclensions } from "../../utils";
 
+import { colors } from "../../styles";
+
 const BTContainer = styled.div`
-  border-top: 1px solid #f2f2f2;
+  border-top: 1px solid ${colors.baseGray};
   padding-top: 60px;
 `;
 
@@ -110,18 +113,12 @@ const To = styled(From)``;
 
 const BasketTotal = ({ currentPrice, count, getTotalPrice }) => {
   const [discount, getDiscount] = useState(0);
-  const [localPrice, getLocalPrice] = useState(0);
-
-  // Пахнет костылями
-  useEffect(() => {
-    getLocalPrice(currentPrice);
-  }, [count]);
 
   const getNewPrice = e => {
     const value = Number(e.target.value);
 
-    if (localPrice - value > 0) {
-      getTotalPrice(localPrice - value);
+    if (currentPrice - value > 0) {
+      getTotalPrice(currentPrice - value);
     }
   };
 

@@ -20,8 +20,11 @@ const Basket = () => {
       <Helmet>
         <title> Корзина </title>
       </Helmet>
-      <BasketTitle getSimulateClear={getSimulateClear} />
-      {isSimulateClear ? <span> Ваша корзина пуста </span> : <BasketList />}
+      <BasketTitle
+        getSimulateClear={getSimulateClear}
+        isSimulateClear={isSimulateClear}
+      />
+      <BasketList isSimulateClear={isSimulateClear} />
       <BasketSlider />
     </BasketContainer>
   );

@@ -6,10 +6,12 @@ import Region from "./Region";
 import UserOptions from "./UserOptions";
 import Helpers from "./Helpers";
 import BasketInfo from "./BasketInfo";
+
 import { getPublicUrl } from "../utils";
+import { colors } from "../styles";
 
 const HeaderContainer = styled.header`
-  background-color: #f9fafb;
+  background-color: ${colors.paleGreyThree};
   padding: 2% 6%;
 `;
 
@@ -44,7 +46,7 @@ const Header = () => (
       <ToMain to="/">
         <FrogogoLogo
           src={getPublicUrl("/assets/svg/logo-frogogo-header.svg")}
-          alt="Frogogo"
+          alt="Frogogo логотип"
         />
       </ToMain>
       <Helpers />

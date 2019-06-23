@@ -2,6 +2,8 @@ import React from "react";
 import styled from "styled-components";
 import styledMap from "styled-map";
 
+import { colors } from "../styles";
+
 const PriceNumber = styled.span`
   font-size: 20px;
   margin-left: 10px;
@@ -9,7 +11,7 @@ const PriceNumber = styled.span`
 
   color: ${styledMap`
     isFull: #1e1e3c;
-    isGold: #ffa000;
+    isGold: ${colors.orangeYellow};
     default: #4ad9bd;
   `};
 `;

@@ -1,9 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 import styledMap from "styled-map";
-import TotalPrice from "../../Helpers/TotalPrice";
 
-const Price = styled.div`
+import TotalPrice from "../../../../Helpers/TotalPrice";
+
+import { colors } from "../../../../styles";
+
+const PriceContainer = styled.div`
   margin-bottom: 10px;
 `;
 
@@ -11,17 +14,17 @@ const PriceDesc = styled.span`
   font-size: 13px;
 
   color: ${styledMap`
-    isFull: #8a93a3;
+    isFull: ${colors.blueGray};
     default: #4ad9bd
   `};
 `;
 
-const BasketPrice = ({ price, title, isFull = false, count = 1 }) =>
+const Price = ({ price, title, isFull = false, count = 1 }) =>
   price && (
-    <Price>
+    <PriceContainer>
       <PriceDesc isFull={isFull}> {title} </PriceDesc>
       <TotalPrice isFull={isFull} count={count} price={price} />
-    </Price>
+    </PriceContainer>
   );
 
-export default BasketPrice;
+export default Price;

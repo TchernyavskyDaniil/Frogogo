@@ -1,6 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
 import styled from "styled-components";
+
 import { getPublicUrl } from "../utils";
+import { colors } from "../styles";
 
 const PromoContainer = styled.div`
   margin: 0 12px;
@@ -20,13 +22,13 @@ const IconPromo = styled.img`
 
 const Desc = styled.span`
   font-size: 14px;
-  color: #ff8282;
+  color: ${colors.peachyPink};
 `;
 
 const Input = styled.input`
   border: transparent;
   background-color: transparent;
-  border-bottom: 1px solid #ff8282;
+  border-bottom: 1px solid ${colors.peachyPink};
   margin-left: 6px;
   font-size: 14px;
   line-height: 14px;

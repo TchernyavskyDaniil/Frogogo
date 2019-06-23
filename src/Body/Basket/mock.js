@@ -1,80 +1,83 @@
 import { getPublicUrl } from "../../utils";
 
-export const basketMock = [
-  {
-    id: 1,
-    title: "Стакан YPSILON BRIO CAPPUCCINO 220 мл",
-    isCombo: false,
-    priceInfo: {
-      fullPrice: 3580,
-      priceFromAccount: 2000,
-      minPriceFromAccount: 2000
+export const basketMock = {
+  withPrice: [
+    {
+      id: 1,
+      title: "Стакан YPSILON BRIO CAPPUCCINO 220 мл",
+      isCombo: false,
+      priceInfo: {
+        fullPrice: 3580,
+        priceFromAccount: 2000,
+        minPriceFromAccount: 2000
+      },
+      count: 2,
+      images: [getPublicUrl("/assets/images/img-product-cart-01@2x.jpg")],
+      options: {
+        isColor: true,
+        isSize: false,
+        title: "Цвет",
+        color: "#e1eb31"
+      }
     },
-    count: 2,
-    images: [getPublicUrl("/assets/images/img-product-cart-01@2x.jpg")],
-    options: {
-      isColor: true,
-      isSize: false,
-      title: "Цвет",
-      color: "#e1eb31"
+    {
+      id: 2,
+      title: "Одеяло Woolfield Sunrise",
+      isCombo: false,
+      priceInfo: {
+        fullPrice: 2000,
+        priceFromAccount: 1000,
+        minPriceFromAccount: null
+      },
+      options: {
+        isColor: false,
+        isSize: true,
+        title: "Размер",
+        size: "170x200"
+      },
+      count: 1,
+      images: [getPublicUrl("/assets/images/img-product-cart-02@2x.jpg")]
+    },
+    {
+      id: 3,
+      title: "Комбо набор Сумка с удлиненными ручками + Зонт-трость SwissOak",
+      isCombo: true,
+      priceInfo: {
+        fullPrice: 2300,
+        priceFromAccount: 1199,
+        minPriceFromAccount: null
+      },
+      options: null,
+      count: 1,
+      images: [
+        getPublicUrl("/assets/images/img-product-cart-03@2x.jpg"),
+        getPublicUrl("/assets/images/img-product-cart-04@2x.jpg")
+      ]
+    },
+    {
+      id: 4,
+      title: "Беспроводная колонка Goodyear Bluetooth Speaker",
+      isCombo: false,
+      priceInfo: {
+        fullPrice: "5000",
+        priceFromAccount: "2500",
+        minPriceFromAccount: null
+      },
+      options: null,
+      count: 1,
+      images: [getPublicUrl("/assets/images/img-product-cart-05@2x.jpg")]
     }
-  },
-  {
-    id: 2,
-    title: "Одеяло Woolfield Sunrise",
-    isCombo: false,
-    priceInfo: {
-      fullPrice: 2000,
-      priceFromAccount: 1000,
-      minPriceFromAccount: null
-    },
-    options: {
-      isColor: false,
-      isSize: true,
-      title: "Размер",
-      size: "170x200"
-    },
-    count: 1,
-    images: [getPublicUrl("/assets/images/img-product-cart-02@2x.jpg")]
-  },
-  {
-    id: 3,
-    title: "Комбо набор Сумка с удлиненными ручками + Зонт-трость SwissOak",
-    isCombo: true,
-    priceInfo: {
-      fullPrice: 2300,
-      priceFromAccount: 1199,
-      minPriceFromAccount: null
-    },
-    options: null,
-    count: 1,
-    images: [
-      getPublicUrl("/assets/images/img-product-cart-03@2x.jpg"),
-      getPublicUrl("/assets/images/img-product-cart-04@2x.jpg")
-    ]
-  },
-  {
-    id: 4,
-    title: "Беспроводная колонка Goodyear Bluetooth Speaker",
-    isCombo: false,
-    priceInfo: {
-      fullPrice: "5000",
-      priceFromAccount: "2500",
-      minPriceFromAccount: null
-    },
-    options: null,
-    count: 1,
-    images: [getPublicUrl("/assets/images/img-product-cart-05@2x.jpg")]
-  }
-];
-
-export const basketGold = [
-  {
-    id: 1,
-    title: "Очки солнцезащитные спортивные антибликовые с поляризацией",
-    images: [getPublicUrl("/assets/images/img-product-cart-06@2x.jpg")]
-  }
-];
+  ],
+  withGoldStatus: [
+    {
+      id: 1,
+      title: "Очки солнцезащитные спортивные антибликовые с поляризацией",
+      images: [getPublicUrl("/assets/images/img-product-cart-06@2x.jpg")]
+    }
+  ],
+  count: 6,
+  price: 16460
+};
 
 export const basketSlider = [
   {

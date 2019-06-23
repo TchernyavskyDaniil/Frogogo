@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 
-import BasketPrice from "./BasketPrice";
-import GoldStatus from "../../Helpers/GoldStatus";
+import Price from "./Price";
+import GoldStatus from "../../../../Helpers/GoldStatus";
 
-const Prices = styled.div`
+const PricesContainer = styled.div`
   text-align: right;
 `;
 
@@ -17,21 +17,21 @@ const PriceFreeContainer = styled.div`
 
 const PriceFree = styled.span``;
 
-const BasketPrices = ({ priceInfo, count, isGold = false }) => (
-  <Prices>
+const Prices = ({ priceInfo, count, isGold = false }) => (
+  <PricesContainer>
     {priceInfo && !isGold ? (
       <>
-        <BasketPrice
+        <Price
           count={count}
           price={priceInfo.fullPrice}
           title="Полная цена"
           isFull
         />
-        <BasketPrice
+        <Price
           price={priceInfo.priceFromAccount}
           title="Можно оплатить с личного счета"
         />
-        <BasketPrice
+        <Price
           price={priceInfo.minPriceFromAccount}
           title="Минимально к оплате с личного счета"
         />
@@ -42,7 +42,7 @@ const BasketPrices = ({ priceInfo, count, isGold = false }) => (
         <GoldStatus isBasket title="GOLD статуса" />
       </PriceFreeContainer>
     )}
-  </Prices>
+  </PricesContainer>
 );
 
-export default BasketPrices;
+export default Prices;

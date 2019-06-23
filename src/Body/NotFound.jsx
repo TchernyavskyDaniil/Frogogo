@@ -10,12 +10,13 @@ const Desc = styled.span`
   height: 80vh;
 `;
 
-const NotFound = () =>
+const NotFound = () => (
   <>
     <Helmet>
       <title> Страница не найдена </title>
     </Helmet>
     <Desc> Страница не найдена </Desc>
-  </>;
+  </>
+);
 
 export default NotFound;

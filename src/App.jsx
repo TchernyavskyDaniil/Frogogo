@@ -33,9 +33,9 @@ const App = () => (
           render={() => <NotImplemented text="Оформление" />}
         />
         <Route exact path="/basket" component={Basket} />
-        <Route component={NotFound} />
         {/* Тк мы работаем в рамках корзины */}
         <Redirect exact from="/" to="/basket" />
+        <Route component={NotFound} />
       </Switch>
     </main>
     <Footer />

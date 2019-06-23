@@ -1,9 +1,13 @@
 import React from "react";
 import styled from "styled-components";
 
+import { colors } from "../../styles";
+import DefaultBtn from "../../Helpers/DefaultButton";
+
 const BTContainer = styled.div`
   display: flex;
   margin-bottom: 60px;
+  width: 60%;
 `;
 
 const Title = styled.h1`
@@ -13,11 +17,11 @@ const Title = styled.h1`
   margin: 0;
 `;
 
-const ClearBasket = styled.button`
+const ClearBasket = styled(DefaultBtn)`
   margin-left: 30px;
   padding-top: 6px;
   font-size: 16px;
-  color: #ff8282;
+  color: ${colors.peachyPink};
   border: transparent;
   background-color: transparent;
   cursor: pointer;
@@ -28,13 +32,15 @@ const ClearBasket = styled.button`
   }
 `;
 
-const BasketTitle = ({ getSimulateClear }) => (
+const BasketTitle = ({ getSimulateClear, isSimulateClear }) => (
   <BTContainer>
     <Title> Вот что в Вашей корзине </Title>
-    <ClearBasket onClick={() => getSimulateClear(true)}>
-      {" "}
-      Очистить корзину{" "}
-    </ClearBasket>
+    {!isSimulateClear && (
+      <ClearBasket onClick={() => getSimulateClear(true)}>
+        {" "}
+        Очистить корзину{" "}
+      </ClearBasket>
+    )}
   </BTContainer>
 );
 

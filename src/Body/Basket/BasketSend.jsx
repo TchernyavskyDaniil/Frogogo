@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import styledMap from "styled-map";
 
+import { colors } from "../../styles";
+
 import TotalPrice from "../../Helpers/TotalPrice";
 import GoldStatus from "../../Helpers/GoldStatus";
 
@@ -24,7 +26,7 @@ const SendTitle = styled.div`
 
 const SendDesc = styled.span`
   font-size: 17px;
-  color: #8a93a3;
+  color: ${colors.blueGray};
 `;
 
 const SendStatus = styled.span`
@@ -45,7 +47,7 @@ const Desc = styled.span`
 
   color: ${styledMap`
     default: #1e1e3c;
-    isGold: #ffa000;
+    isGold: ${colors.orangeYellow};
     isDisc: #4ad9bd;
   `};
 
@@ -60,23 +62,18 @@ const Container = styled.div`
   flex-wrap: wrap;
 `;
 
-const BasketSend = ({ totalPrice }) => {
+const BasketSend = ({ totalPrice, getTotalPrice }) => {
   const [isLowCost, getStateCost] = useState(false);
-  const [finalCost, getFinalCost] = useState(null);
-
-  useEffect(() => {
-    getFinalCost(totalPrice);
-  }, []);
 
   useEffect(() => {
     if (!isLowCost && totalPrice < 1000) {
-      getFinalCost(totalPrice + 299);
+      getTotalPrice(totalPrice + 299);
       getStateCost(true);
     } else if (isLowCost && totalPrice >= 1000) {
-      getFinalCost(totalPrice - 299);
+      getTotalPrice(totalPrice - 299);
       getStateCost(false);
     } else {
-      getFinalCost(totalPrice);
+      getTotalPrice(totalPrice);
     }
   }, [totalPrice]);
 
@@ -91,7 +88,7 @@ const BasketSend = ({ totalPrice }) => {
       </SendTitle>
       <TotalSend>
         <Desc>Итоговая стоимость</Desc>
-        <TotalPrice isFull price={finalCost} />
+        <TotalPrice isFull price={totalPrice} />
       </TotalSend>
       <TotalSend>
         <Container>

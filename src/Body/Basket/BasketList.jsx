@@ -1,17 +1,25 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 
-import BasketItem from "./BasketItem";
-
-// Mocks
-import { basketMock, basketGold } from "./mock";
+import BasketItem from "./Item";
 import BasketTotal from "./BasketTotal";
 import BasketSend from "./BasketSend";
+import Preloader from "../../Helpers/Preloader";
 
-const BLContainer = styled.div`
+// Mocks
+import { basketMock } from "./mock";
+
+const EmptyBasket = styled.span`
+  font-size: 20px;
+  margin: 40px;
+`;
+
+const BLContainer = styled.section`
   display: flex;
   flex-direction: column;
+  min-height: 400px;
+  width: 60%;
 `;
 
 const LinkToMaking = styled(Link)`
@@ -30,9 +38,16 @@ const LinkToMaking = styled(Link)`
   }
 `;
 
-const BasketList = () => {
+const List = styled.ul`
+  list-style: none;
+  margin: 0;
+  padding: 0;
+`;
+
+const BasketList = ({ isSimulateClear }) => {
   const [simulateDataBasket, getSimulateBasket] = useState([]);
   const [simulateGoldBasket, getSimulateGold] = useState([]);
+  const [simulateIsLoad, getLoadState] = useState(false);
 
   const [totalCount, getTotalCount] = useState(0);
   const [totalPrice, getTotalPrice] = useState(0);
@@ -40,65 +55,91 @@ const BasketList = () => {
   // Did mount
   useEffect(() => {
     if (basketMock) {
-      let localCount = totalCount;
-      let localPrice = totalPrice;
+      getSimulateBasket(basketMock.withPrice);
+      getSimulateGold(basketMock.withGoldStatus);
 
-      getSimulateBasket(basketMock);
-
-      basketMock.forEach(({ count, priceInfo: { fullPrice } }) => {
-        localCount = localCount + +count;
-        localPrice = localPrice + +fullPrice;
-      });
-
-      getTotalCount(localCount);
-      getTotalPrice(localPrice);
+      getTotalCount(basketMock.count);
+      getTotalPrice(basketMock.price);
     }
 
-    if (basketGold) {
-      getSimulateGold(basketGold);
+    if (basketMock.withPrice.length || basketMock.withGoldStatus.length) {
+      getLoadState(true);
     }
   }, []);
 
-  return (
-    <BLContainer>
-      {/* Если && => 0 */}
-      {simulateDataBasket.length
-        ? simulateDataBasket.map(item => (
-            <BasketItem
-              key={item.id}
-              data={item}
-              simulateDataBasket={simulateDataBasket}
-              getSimulateBasket={getSimulateBasket}
-              getTotalCount={getTotalCount}
-              totalCount={totalCount}
+  useEffect(() => {
+    if (isSimulateClear) {
+      getSimulateBasket([]);
+      getSimulateGold([]);
+    }
+  }, [isSimulateClear]);
+
+  const deleteCurrentItem = (
+    currentId,
+    isGold = false,
+    localCount = 1,
+    price = 0
+  ) => {
+    if (isGold) {
+      getSimulateGold(simulateGoldBasket.filter(el => el.id !== currentId));
+    } else {
+      getSimulateBasket(simulateDataBasket.filter(el => el.id !== currentId));
+      getTotalPrice(totalPrice - +price * localCount);
+    }
+
+    getTotalCount(totalCount - localCount);
+  };
+
+  const getArrBasket = (data, isGold = false) =>
+    data.map(item => (
+      <BasketItem
+        key={item.id}
+        data={item}
+        getTotalCount={getTotalCount}
+        totalCount={totalCount}
+        getTotalPrice={getTotalPrice}
+        totalPrice={totalPrice}
+        deleteCurrentItem={deleteCurrentItem}
+        isGold={isGold}
+      />
+    ));
+
+  const dataBasket = useMemo(() => getArrBasket(simulateDataBasket, false), [
+    totalPrice,
+    totalCount
+  ]);
+  const dataGoldBasket = useMemo(() => getArrBasket(simulateGoldBasket, true), [
+    totalPrice,
+    totalCount
+  ]);
+
+  return simulateIsLoad ? (
+    simulateDataBasket.length || simulateGoldBasket.length ? (
+      <BLContainer>
+        <List>
+          {dataBasket}
+          {dataGoldBasket}
+        </List>
+        {totalPrice > 0 && (
+          <>
+            <BasketTotal
+              count={totalCount}
+              currentPrice={totalPrice}
               getTotalPrice={getTotalPrice}
-              totalPrice={totalPrice}
             />
-          ))
-        : null}
-      {simulateGoldBasket.length
-        ? simulateGoldBasket.map(item => (
-            <BasketItem
-              key={item.id}
-              data={item}
-              isGold
-              getSimulateGold={getSimulateGold}
-              simulateGoldBasket={simulateGoldBasket}
-            />
-          ))
-        : null}
-      {totalPrice > 0 && (
-        <>
-          <BasketTotal
-            count={totalCount}
-            currentPrice={totalPrice}
-            getTotalPrice={getTotalPrice}
-          />
-          <BasketSend totalPrice={totalPrice} getTotalPrice={getTotalPrice} />
-          <LinkToMaking to="/calculating"> Перейти к оформлению </LinkToMaking>
-        </>
-      )}
-    </BLContainer>
+            <BasketSend totalPrice={totalPrice} getTotalPrice={getTotalPrice} />
+            <LinkToMaking to="/calculating">
+              {" "}
+              Перейти к оформлению{" "}
+            </LinkToMaking>
+          </>
+        )}
+      </BLContainer>
+    ) : (
+      <EmptyBasket> Ваша корзина пуста </EmptyBasket>
+    )
+  ) : (
+    <Preloader />
   );
 };
 

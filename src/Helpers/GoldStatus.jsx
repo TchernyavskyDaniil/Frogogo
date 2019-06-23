@@ -3,6 +3,7 @@ import styled from "styled-components";
 import styledMap from "styled-map";
 
 import { getPublicUrl } from "../utils";
+import { colors } from "../styles";
 
 const GSContainer = styled.div`
   margin: ${styledMap`
@@ -21,7 +22,7 @@ const Desc = styled.span`
     default: 14px;
     isBasket: 17px;
   `};
-  color: #ffa000;
+  color: ${colors.orangeYellow};
 `;
 
 const GoldStatus = ({ title, isBasket = false, noMargin = false }) => {

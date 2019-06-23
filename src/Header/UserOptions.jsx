@@ -1,9 +1,9 @@
 import React from "react";
 import styled from "styled-components";
 
-import Dropdown from "../../Helpers/Dropdown";
-import Promo from "../../Helpers/Promo";
-import GoldStatus from "../../Helpers/GoldStatus";
+import Dropdown from "../Helpers/Dropdown";
+import Promo from "../Helpers/Promo";
+import GoldStatus from "../Helpers/GoldStatus";
 
 const UserContainer = styled.div`
   display: flex;
